@@ -9,6 +9,21 @@ describe "Static pages" do
     it { should have_selector('title', text: full_title(page_title)) }
   end
 
+  it "should have the right links on the layout" do
+    # if they work on root path, they should work everywhere b/c shared
+    visit root_path
+    click_link "About"
+    page.should have_selector 'title', text: full_title('About')
+    click_link "Contact"
+    page.should have_selector 'title', text: full_title('Contact')
+    click_link "Help"
+    page.should have_selector 'title', text: full_title('Help')
+    click_link "sample app"
+    page.should have_selector 'title', text: full_title('')
+    click_link "Sign up now!"
+    page.should have_selector 'title', text: full_title('Sign up')
+  end
+
   describe "Home page" do
     before { visit root_path }
     let(:heading)    { 'Sample App' }
