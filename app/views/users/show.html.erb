@@ -1,6 +1,7 @@
 <% provide(:title, @user.name) %>
 <div class="row">
   <aside class="span4">
+  	<%= render 'shared/error_messages' %>
     <section>
       <h1>
         <%= gravatar_for @user %>

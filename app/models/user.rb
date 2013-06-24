@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_secure_password
 
   before_save { |user| user.email = email.downcase }
+  # change the auth token when a user changes their info
   before_save :create_remember_token
   
   validates :name, presence: true, length: { maximum: 50 }
@@ -26,7 +27,6 @@ class User < ActiveRecord::Base
   after_validation { self.errors.messages.delete(:password_digest) }
 
   private
-
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
     end

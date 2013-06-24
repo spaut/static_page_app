@@ -20,6 +20,7 @@ describe "Authentication" do
       it { should have_selector('title', text: 'Sign in') }
       it { should have_selector('div.alert.alert-error', text: 'Invalid') }
 
+      # make sure the flash msg doesn't persist to other pages (8.7)
       describe "after visiting another page" do
   		before { click_link "Home" }
   		it { should_not have_selector('div.alert.alert-error') }
@@ -29,7 +30,7 @@ describe "Authentication" do
     describe "with valid information" do
       let(:user) { FactoryGirl.create(:user) }
       before do
-        fill_in "Email",    with: user.email.upcase
+        fill_in "Email",    with: user.email.upcase # upcase to make sure case insensitivity is working
         fill_in "Password", with: user.password
         click_button "Sign in"
       end
